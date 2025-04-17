@@ -102,6 +102,7 @@ export class MapPlaylist {
           Japan: 3,
           BlackSea: 1,
           FaroeIslands: 2,
+          FIji: 2,
         };
     }
   }

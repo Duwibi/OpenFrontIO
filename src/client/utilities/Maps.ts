@@ -6,6 +6,7 @@ import blackSea from "../../../resources/maps/BlackSeaThumb.webp";
 import britannia from "../../../resources/maps/BritanniaThumb.webp";
 import europe from "../../../resources/maps/EuropeThumb.webp";
 import faroeislands from "../../../resources/maps/FaroeIslandsThumb.webp";
+import fiji from "../../../resources/maps/FijiThumb.webp";
 import gatewayToTheAtlantic from "../../../resources/maps/GatewayToTheAtlanticThumb.webp";
 import iceland from "../../../resources/maps/IcelandThumb.webp";
 import japan from "../../../resources/maps/JapanThumb.webp";
@@ -60,6 +61,8 @@ export function getMapsImage(map: GameMapType): string {
       return knownworld;
     case GameMapType.FaroeIslands:
       return faroeislands;
+    case GameMapType.Fiji:
+      return fiji;
     default:
       return "";
   }

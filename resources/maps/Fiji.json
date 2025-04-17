@@ -1,0 +1,55 @@
+{
+  "name": "FIji",
+  "width": 1780,
+  "height": 1260,
+  "nations": [
+    {
+      "coordinates": [310, 585],
+      "name": "Ba",
+      "strength": 2,
+      "flag": "fj"
+    },
+    {
+      "coordinates": [460, 840],
+      "name": "Rewa",
+      "strength": 2,
+      "flag": "fj"
+    },
+    {
+      "coordinates": [545, 1135],
+      "name": "Kadavu",
+      "strength": 1,
+      "flag": "fj"
+    },
+    {
+      "coordinates": [720, 330],
+      "name": "Bua",
+      "strength": 2,
+      "flag": "fj"
+    },
+    {
+      "coordinates": [900, 175],
+      "name": "Macuata",
+      "strength": 2,
+      "flag": "fj"
+    },
+    {
+      "coordinates": [1180, 305],
+      "name": "Cakaudrove",
+      "strength": 2,
+      "flag": "fj"
+    },
+    {
+      "coordinates": [885, 755],
+      "name": "Lomaiviti",
+      "strength": 1,
+      "flag": "fj"
+    },
+    {
+      "coordinates": [1585, 840],
+      "name": "Lau",
+      "strength": 1,
+      "flag": "fj"
+    }
+  ]
+}
