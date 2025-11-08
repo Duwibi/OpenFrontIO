@@ -31,6 +31,7 @@ import {
   PlayerType,
   Relation,
   Team,
+  TerrainType,
   TerraNullius,
   Tick,
   Unit,
@@ -288,7 +289,10 @@ export class PlayerImpl implements Player {
     const ns: Set<Player | TerraNullius> = new Set();
     for (const border of this.borderTiles()) {
       for (const neighbor of this.mg.map().neighbors(border)) {
-        if (this.mg.map().isLand(neighbor)) {
+        if (
+          this.mg.map().isLand(neighbor) ||
+          this.mg.map().terrainType(neighbor) !== TerrainType.Impassable
+        ) {
           const owner = this.mg.map().ownerID(neighbor);
           if (owner !== this.smallID()) {
             ns.add(
@@ -1049,7 +1053,10 @@ export class PlayerImpl implements Player {
   }
 
   landBasedUnitSpawn(tile: TileRef): TileRef | false {
-    return this.mg.isLand(tile) ? tile : false;
+    return this.mg.isLand(tile) &&
+      this.mg.terrainType(tile) !== TerrainType.Impassable
+      ? tile
+      : false;
   }
 
   landBasedStructureSpawn(
@@ -1196,7 +1203,10 @@ export class PlayerImpl implements Player {
       }
     }
 
-    if (!this.mg.isLand(tile)) {
+    if (
+      !this.mg.isLand(tile) ||
+      this.mg.terrainType(tile) === TerrainType.Impassable
+    ) {
       return false;
     }
     if (this.mg.hasOwner(tile)) {
@@ -1205,7 +1215,10 @@ export class PlayerImpl implements Player {
       for (const t of this.mg.bfs(
         tile,
         andFN(
-          (gm, t) => !gm.hasOwner(t) && gm.isLand(t),
+          (gm, t) =>
+            !gm.hasOwner(t) &&
+            gm.isLand(t) &&
+            gm.terrainType(t) !== TerrainType.Impassable,
           manhattanDistFN(tile, 200),
         ),
       )) {

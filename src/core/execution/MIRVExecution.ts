@@ -3,6 +3,7 @@ import {
   Game,
   MessageType,
   Player,
+  TerrainType,
   TerraNullius,
   Unit,
   UnitType,
@@ -151,7 +152,10 @@ export class MirvExecution implements Execution {
         continue;
       }
       const tile = this.mg.ref(x, y);
-      if (!this.mg.isLand(tile)) {
+      if (
+        !this.mg.isLand(tile) ||
+        this.mg.terrainType(tile) === TerrainType.Impassable
+      ) {
         continue;
       }
       if (this.mg.euclideanDistSquared(tile, ref) > mirvRange2) {

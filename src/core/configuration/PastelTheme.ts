@@ -124,6 +124,8 @@ export class PastelTheme implements Theme {
           g: 230 + mag / 2,
           b: 230 + mag / 2,
         });
+      case TerrainType.Impassable:
+        return colord("rgb(60,60,60)");
     }
   }
 

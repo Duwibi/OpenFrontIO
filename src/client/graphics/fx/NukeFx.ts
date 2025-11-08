@@ -1,3 +1,4 @@
+import { TerrainType } from "../../../core/game/Game";
 import { GameView } from "../../../core/game/GameView";
 import { AnimatedSpriteLoader } from "../AnimatedSpriteLoader";
 import { Fx, FxType } from "./Fx";
@@ -52,7 +53,8 @@ function addSpriteInCircle(
     const spawnY = Math.floor(y + Math.sin(angle) * distance);
     if (
       game.isValidCoord(spawnX, spawnY) &&
-      game.isLand(game.ref(spawnX, spawnY))
+      game.isLand(game.ref(spawnX, spawnY)) &&
+      game.terrainType(game.ref(spawnX, spawnY)) !== TerrainType.Impassable
     ) {
       const sprite = new FadeFx(
         new SpriteFx(animatedSpriteLoader, spawnX, spawnY, type, 6000),

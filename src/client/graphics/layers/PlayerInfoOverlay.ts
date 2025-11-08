@@ -15,6 +15,7 @@ import {
   PlayerProfile,
   PlayerType,
   Relation,
+  TerrainType,
   Unit,
   UnitType,
 } from "../../../core/game/Game";
@@ -125,7 +126,10 @@ export class PlayerInfoOverlay extends LitElement implements Layer {
         this.playerProfile = p;
       });
       this.setVisible(true);
-    } else if (!this.game.isLand(tile)) {
+    } else if (
+      !this.game.isLand(tile) ||
+      this.game.terrainType(tile) === TerrainType.Impassable
+    ) {
       const units = this.game
         .units(UnitType.Warship, UnitType.TradeShip, UnitType.TransportShip)
         .filter((u) => euclideanDistWorld(worldCoord, u.tile(), this.game) < 50)

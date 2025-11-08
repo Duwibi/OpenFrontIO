@@ -338,6 +338,7 @@ export enum TerrainType {
   Plains,
   Highland,
   Mountain,
+  Impassable,
   Lake,
   Ocean,
 }

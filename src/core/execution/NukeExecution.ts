@@ -4,6 +4,7 @@ import {
   isStructureType,
   MessageType,
   Player,
+  TerrainType,
   TerraNullius,
   TrajectoryTile,
   Unit,
@@ -279,7 +280,10 @@ export class NukeExecution implements Execution {
         });
       }
 
-      if (this.mg.isLand(tile)) {
+      if (
+        this.mg.isLand(tile) &&
+        this.mg.terrainType(tile) !== TerrainType.Impassable
+      ) {
         this.mg.setFallout(tile, true);
       }
     }

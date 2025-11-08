@@ -4,6 +4,7 @@ import {
   MessageType,
   Player,
   PlayerID,
+  TerrainType,
   TerraNullius,
   Unit,
   UnitType,
@@ -103,6 +104,12 @@ export class TransportShipExecution implements Execution {
       console.warn(
         `${this.attacker} cannot send ship to ${this.target}, cannot find attack tile`,
       );
+      this.active = false;
+      return;
+    }
+
+    if (this.mg.terrainType(this.dst) === TerrainType.Impassable) {
+      console.warn(`TransportShipExecution: dst ${this.dst} is impassable`);
       this.active = false;
       return;
     }

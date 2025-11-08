@@ -85,12 +85,17 @@ func GenerateMap(args GeneratorArgs) (MapResult, error) {
 	// Process each pixel
 	for x := 0; x < width; x++ {
 		for y := 0; y < height; y++ {
-			_, _, b, a := img.At(x, y).RGBA()
+			r, g, b, a := img.At(x, y).RGBA()
 			// Convert from 16-bit to 8-bit values
 			alpha := uint8(a >> 8)
+			red := uint8(r >> 8)
+			green := uint8(g >> 8)
 			blue := uint8(b >> 8)
 
-			if alpha < 20 || blue == 106 {
+			if red == 255 && green == 0 && blue == 255 {
+				// Impassable
+				terrain[x][y] = Terrain{Type: Land, Magnitude: float64(31), Shoreline: false, Ocean: false}
+			} else if alpha < 20 || blue == 106 {
 				// Transparent or specific blue value = water
 				terrain[x][y] = Terrain{Type: Water}
 			} else {
@@ -561,7 +566,7 @@ func getThumbnailColor(t Terrain) RGBA {
 			B: uint8(138 + adjRGB),
 			A: 255,
 		}
-	} else {
+	} else if t.Magnitude < 31 {
 		// Mountains
 		adjRGB = math.Floor(230 + t.Magnitude/2)
 		return RGBA{
@@ -570,6 +575,9 @@ func getThumbnailColor(t Terrain) RGBA {
 			B: uint8(adjRGB),
 			A: 255,
 		}
+	} else {
+		// Impassable
+		return RGBA{R: 60, G: 60, B: 60, A: 255}
 	}
 }
 

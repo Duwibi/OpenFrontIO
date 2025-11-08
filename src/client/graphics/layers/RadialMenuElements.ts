@@ -1,5 +1,10 @@
 import { Config } from "../../../core/configuration/Config";
-import { AllPlayers, PlayerActions, UnitType } from "../../../core/game/Game";
+import {
+  AllPlayers,
+  PlayerActions,
+  TerrainType,
+  UnitType,
+} from "../../../core/game/Game";
 import { TileRef } from "../../../core/game/GameMap";
 import { GameView, PlayerView } from "../../../core/game/GameView";
 import { Emoji, flattenedEmojiTable } from "../../../core/Util";
@@ -435,7 +440,10 @@ export const deleteUnitElement: MenuElement = {
       return true;
     }
 
-    if (!isLand) {
+    if (
+      !isLand ||
+      params.game.terrainType(params.tile) === TerrainType.Impassable
+    ) {
       return true;
     }
 
@@ -540,7 +548,10 @@ export const centerButtonElement: CenterButtonElement = {
   disabled: (params: MenuElementParams): boolean => {
     const tileOwner = params.game.owner(params.tile);
     const isLand = params.game.isLand(params.tile);
-    if (!isLand) {
+    if (
+      !isLand ||
+      params.game.terrainType(params.tile) === TerrainType.Impassable
+    ) {
       return true;
     }
     if (params.game.inSpawnPhase()) {

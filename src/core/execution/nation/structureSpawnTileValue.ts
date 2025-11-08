@@ -1,4 +1,4 @@
-import { Game, Player, Relation, UnitType } from "../../game/Game";
+import { Game, Player, Relation, TerrainType, UnitType } from "../../game/Game";
 import { TileRef } from "../../game/GameMap";
 import { closestTile, closestTwoTiles } from "../Util";
 
@@ -74,7 +74,11 @@ export function structureSpawnTileValue(
           // Prefer adjacent players who are hostile
           const neighbors: Set<Player> = new Set();
           for (const tile of mg.neighbors(closest)) {
-            if (!mg.isLand(tile)) continue;
+            if (
+              !mg.isLand(tile) ||
+              this.mg.terrainType(tile) === TerrainType.Impassable
+            )
+              continue;
             const id = mg.ownerID(tile);
             if (id === player.smallID()) continue;
             const neighbor = mg.playerBySmallID(id);

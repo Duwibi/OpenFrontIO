@@ -665,6 +665,12 @@ export class DefaultConfig implements Config {
         mag = 120;
         speed = 25;
         break;
+      case TerrainType.Impassable:
+        return {
+          attackerTroopLoss: 0,
+          defenderTroopLoss: 0,
+          tilesPerTickUsed: 0,
+        };
       default:
         throw new Error(`terrain type ${type} not supported`);
     }

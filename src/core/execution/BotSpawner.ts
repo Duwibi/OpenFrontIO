@@ -1,4 +1,4 @@
-import { Game, PlayerInfo, PlayerType } from "../game/Game";
+import { Game, PlayerInfo, PlayerType, TerrainType } from "../game/Game";
 import { TileRef } from "../game/GameMap";
 import { PseudoRandom } from "../PseudoRandom";
 import { GameID } from "../Schemas";
@@ -37,7 +37,10 @@ export class BotSpawner {
 
   spawnBot(botName: string): SpawnExecution | null {
     const tile = this.randTile();
-    if (!this.gs.isLand(tile)) {
+    if (
+      !this.gs.isLand(tile) ||
+      this.gs.terrainType(tile) === TerrainType.Impassable
+    ) {
       return null;
     }
     for (const spawn of this.bots) {

@@ -194,7 +194,9 @@ export class FakeHumanExecution implements Execution {
       .flatMap((t) => this.mg.neighbors(t))
       .filter(
         (t) =>
-          this.mg.isLand(t) && this.mg.ownerID(t) !== this.player?.smallID(),
+          this.mg.isLand(t) &&
+          this.mg.terrainType(t) !== TerrainType.Impassable &&
+          this.mg.ownerID(t) !== this.player?.smallID(),
       );
 
     let borderingEnemies: Player[] = [];
@@ -627,7 +629,11 @@ export class FakeHumanExecution implements Execution {
         continue;
       }
       const tile = this.mg.ref(x, y);
-      if (this.mg.isLand(tile) && !this.mg.hasOwner(tile)) {
+      if (
+        this.mg.isLand(tile) &&
+        this.mg.terrainType(tile) !== TerrainType.Impassable &&
+        !this.mg.hasOwner(tile)
+      ) {
         if (
           this.mg.terrainType(tile) === TerrainType.Mountain &&
           this.random.chance(2)

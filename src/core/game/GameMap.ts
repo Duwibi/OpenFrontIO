@@ -254,7 +254,8 @@ export class GameMapImpl implements GameMap {
       const magnitude = this.magnitude(ref);
       if (magnitude < 10) return TerrainType.Plains;
       if (magnitude < 20) return TerrainType.Highland;
-      return TerrainType.Mountain;
+      if (magnitude < 31) return TerrainType.Mountain;
+      return TerrainType.Impassable;
     }
     return this.isOcean(ref) ? TerrainType.Ocean : TerrainType.Lake;
   }

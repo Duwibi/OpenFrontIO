@@ -1,4 +1,11 @@
-import { Execution, Game, MessageType, Player, Unit } from "../game/Game";
+import {
+  Execution,
+  Game,
+  MessageType,
+  Player,
+  TerrainType,
+  Unit,
+} from "../game/Game";
 
 export class DeleteUnitExecution implements Execution {
   private active: boolean = true;
@@ -45,7 +52,10 @@ export class DeleteUnitExecution implements Execution {
       return;
     }
 
-    if (!mg.isLand(unit.tile())) {
+    if (
+      !mg.isLand(unit.tile()) ||
+      mg.terrainType(unit.tile()) === TerrainType.Impassable
+    ) {
       console.warn(`SECURITY: unit ${this.unitId} is not on land`);
       this.active = false;
       return;
